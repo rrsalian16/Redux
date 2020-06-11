@@ -1,4 +1,5 @@
-import * as actionTypes from '../actions/actions';
+import * as actionTypes from '../actions/actionsTypes';
+import {updateObject} from '../utility';
 
 const initialState = {
     result: [],
@@ -7,19 +8,15 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.STORE_RESULT:
-            return {
-                ...state,
-                result: state.result.concat(action.counter),
-            };
+            return updateObject(state, {result: state.result.concat(action.counter)})
+            
         case actionTypes.DELETE_RESULT:
             const updatedArray = state.result.filter(
                 (res, index) => index !== action.resId
             );
-            return {
-                ...state,
-                result: updatedArray,
-            };
-
+            return updateObject(state, {
+                result: updatedArray
+            })
         default:
             break;
     }
